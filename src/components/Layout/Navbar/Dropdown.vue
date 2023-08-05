@@ -1,5 +1,5 @@
 <template>
-    <a-dropdown placement="bottomCenter">
+    <a-dropdown placement="bottom">
         <a class="px-4 py-2  mx-2 text-white font-semibold hover:bg-slate-600" @click.prevent>
             Categories
             <!-- <DownOutlined /> -->

@@ -8,26 +8,26 @@
                     <div>
                         <div class="mb-2 font-bold"><label>First Name</label></div>
                         <input class="w-full border-2 border-gray-300 rounded-lg p-2 px-4" placeholder="e. g. john"
-                            name="firstName" v-model="firstName" onchange="onChange"/>
+                            name="firstName" v-model="credentialData.firstName" :onchange="onChange" />
                     </div>
                     <div>
                         <div class="mb-2 font-bold"><label>Last Name</label></div>
                         <input class="w-full border-2 border-gray-300 rounded-lg p-2 px-4 " placeholder="e. g. bell"
-                            v-model="lastName" />
+                            v-model="credentialData.lastName" />
                     </div>
                     <div>
                         <div class="mb-2 font-bold"><label>Email</label></div>
                         <input class="w-full border-2 border-gray-300 rounded-lg p-2 px-4 "
-                            placeholder="e. g. john@example.com" v-model="email" />
+                            placeholder="e. g. john@example.com" v-model="credentialData.email" />
                     </div>
                     <div>
                         <div class="mb-2 font-bold"><label>Phone</label></div>
-                        <input class="w-full border-2 border-gray-300 rounded-lg p-2 px-4 " v-model="phone" />
+                        <input class="w-full border-2 border-gray-300 rounded-lg p-2 px-4 " v-model="credentialData.phone" />
                     </div>
                     <div>
                         <div class="mb-2 font-bold"><label>Password</label></div>
                         <input class="w-full border-2 border-gray-300 rounded-lg p-2 px-4 " placeholder="* * * * * *"
-                            v-model="password" />
+                            v-model="credentialData.password" />
                     </div>
                     <div>
                         <div class="mb-2 font-bold"><label>Confirm Password</label></div>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="mb-3 text-center">
-                    <EShopButton btnText="Singin" classes="w-1/2" :onclick="submit" />
+                    <EShopButton btnText="Singin" classes="w-1/2" :onclick="handleSubmit" :disabled="disabled" />
                 </div>
                 <div class="text-center">
                     <p>Already have an Account? <router-link to="/signin" class="text-blue-500 hover:underline ml-3">Click
@@ -48,31 +48,23 @@
 
 <script setup>
 
-import EShopButton from '../components/shared/EShopButton.vue';
+import { computed, ref } from 'vue';
+import { EShopButton } from '../components/shared';
+import { useAuthStore } from '../store'
+
+
+const userStore = JSON.parse(JSON.stringify(useAuthStore()));
+
+const credentialData = ref({ firstName: '', lastName: '', email: '', phone: '', password: '' })
+const disabled = computed(() => {
+    const { firstName, lastName, email, phone, password } = credentialData.value;
+    return !firstName || !lastName || !phone || !email || !password
+}
+);
 
 const handleSubmit = async () => {
-
+    userStore.userLogin({ ...credentialData })
 }
 
 </script>
 
-<script>
-export default {
-    data() {
-        return {
-            firstName: "",
-            lastName: '',
-            email: '',
-            phone: '',
-            password: '',
-        }
-    },
-    methods: {
-        submit() {
-        },
-        onChange(e){
-            console.log(e.target.name, e.target.value)
-        }
-    }
-}
-</script>
