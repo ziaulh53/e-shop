@@ -1,12 +1,11 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:5000/";
-const token = localStorage.getItem("token");
+axios.defaults.baseURL = "http://localhost:5000";
+const token = JSON.parse(localStorage.getItem("auth"))?.token;
 
 class ApiConfig {
   constructor() {
     this.post = async (endpoint, data) => {
-      console.log(data)
       try {
         const res = await axios.post(
           endpoint,

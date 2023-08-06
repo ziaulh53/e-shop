@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <Layout>
         <div class="grid grid-cols-4">
             <div class="col-span-1"></div>
             <div class="col-span-2 my-20 border-2 rounded-md p-5 bg-white">
@@ -8,7 +8,7 @@
                     <div>
                         <div class="mb-2 font-bold"><label>First Name</label></div>
                         <input class="w-full border-2 border-gray-300 rounded-lg p-2 px-4" placeholder="e. g. john"
-                            name="firstName" v-model="credentialData.firstName" :onchange="onChange" />
+                            name="firstName" v-model="credentialData.firstName" />
                     </div>
                     <div>
                         <div class="mb-2 font-bold"><label>Last Name</label></div>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="mb-3 text-center">
-                    <EShopButton btnText="Singin" classes="w-1/2" :onclick="handleSubmit" :disabled="disabled" />
+                    <EShopButton btnText="Create Account" classes="w-1/2" :onclick="handleSubmit" :disabled="disabled" />
                 </div>
                 <div class="text-center">
                     <p>Already have an Account? <router-link to="/signin" class="text-blue-500 hover:underline ml-3">Click
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </Layout>
 </template>
 
 <script setup>
@@ -51,9 +51,12 @@
 import { computed, ref } from 'vue';
 import { EShopButton } from '../components/shared';
 import { useAuthStore } from '../store'
+import { useRouter } from 'vue-router';
+import { Layout } from '../components/Layout';
 
 
-const userStore = JSON.parse(JSON.stringify(useAuthStore()));
+const userStore = useAuthStore();
+const router = useRouter()
 
 const credentialData = ref({ firstName: '', lastName: '', email: '', phone: '', password: '' })
 const disabled = computed(() => {
@@ -63,7 +66,10 @@ const disabled = computed(() => {
 );
 
 const handleSubmit = async () => {
-    userStore.userLogin({ ...credentialData })
+    const res = await userStore.userRegistration({ ...credentialData.value });
+    if(res.success){
+        router.push({name: 'signin'})
+    }
 }
 
 </script>
