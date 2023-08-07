@@ -1,3 +1,11 @@
+
+
+<template>
+    <button type="primary" :onclick="onclick" :disabled="disabled || loading" :class="classes + ' btn-class'">
+       <span v-if="loading"><i class="fa-solid fa-spinner fa-spin mr-2" ></i> </span> {{ btnText }}
+    </button>
+</template>
+
 <script setup>
 const props = defineProps({
     onclick: {
@@ -11,15 +19,11 @@ const props = defineProps({
     classes: {
         type: String
     },
-    disabled:{
+    disabled: {
+        type: Boolean
+    },
+    loading: {
         type: Boolean
     }
 })
 </script>
-
-<template>
-    <button type="primary" :onclick="onclick" :disabled="disabled"
-        :class="classes+' bg-theme-color px-4 py-2 text-white font-bold rounded-lg disabled:bg-slate-400 hover:bg-theme-light disabled:cursor-not-allowed'">{{
-        btnText }}
-    </button>
-</template>

@@ -1,6 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { Home, ProductList, SignUp, SignIn, ShoppingCart, Checkout } from "../views";
+import {
+  Home,
+  ProductList,
+  SignUp,
+  SignIn,
+  ShoppingCart,
+  Checkout,
+  ForgetPassword,
+  ResetPassword,
+} from "../views";
 import { useAuthStore } from "../store";
+import { computed } from "vue";
+import { storeToRefs } from "pinia";
 
 const routes = [
   {
@@ -18,32 +29,48 @@ const routes = [
     name: "signup",
     component: SignUp,
     meta: {
-      requireAuth: false
-    }
+      requireAuth: false,
+    },
   },
   {
     path: "/signin",
     name: "signin",
     component: SignIn,
     meta: {
-      requireAuth: false
-    }
+      requireAuth: false,
+    },
+  },
+  {
+    path: "/forget-password",
+    name: "forget",
+    component: ForgetPassword,
+    meta: {
+      requireAuth: false,
+    },
+  },
+  {
+    path: "/reset-password",
+    name: "reset",
+    component: ResetPassword,
+    meta: {
+      requireAuth: false,
+    },
   },
   {
     path: "/shopping-cart",
     name: "shopping",
     component: ShoppingCart,
     meta: {
-      requireAuth: true
-    }
+      requireAuth: true,
+    },
   },
   {
     path: "/checkout",
     name: "checkout",
     component: Checkout,
     meta: {
-      requireAuth: true
-    }
+      requireAuth: true,
+    },
   },
 ];
 
@@ -54,15 +81,18 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next)=>{
-  const {isAuthenticated} = useAuthStore().auth;
-  if('requireAuth' in to.meta && to.meta.requireAuth && !isAuthenticated){
-    next("/signin")
-  }
-  else if( 'requireAuth' in to.meta && !to.meta.requireAuth && isAuthenticated){
-    next("/")
-  } else next()
-
-})
+router.beforeEach((to, from, next) => {
+  const userStore = useAuthStore();
+  const { isAuthenticated } = userStore.user;
+  if ("requireAuth" in to.meta && to.meta.requireAuth && !isAuthenticated) {
+    next("/signin");
+  } else if (
+    "requireAuth" in to.meta &&
+    !to.meta.requireAuth &&
+    isAuthenticated
+  ) {
+    next("/");
+  } else next();
+});
 
 export default router;

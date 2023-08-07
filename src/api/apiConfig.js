@@ -14,7 +14,7 @@ class ApiConfig {
           },
           {
             headers: {
-              Authorization: `Bearer ` + token,
+              Authorization: token? `Bearer ` + token: "",
             },
           }
         );
@@ -22,44 +22,16 @@ class ApiConfig {
       } catch (error) {
         console.log(error)
       }
-      // axios
-      //   .post(
-      //     endpoint,
-      //     {
-      //       ...data,
-      //     },
-      //     {
-      //       headers: {
-      //         Authorization: `Bearer ` + token,
-      //       },
-      //     }
-      //   )
-      //   .then((res) => {
-      //     return res;
-      //   })
-      //   .catch((err) => console.log(err));
     };
     this.get = async(endpoint, data) => {
       try {
-        const res = await axios.get(endpoint);
+        const res = await axios.get(endpoint, {params}, {
+          headers: {
+
+          }
+        });
         return res;
       } catch (error) {}
-      // axios
-      //   .get(
-      //     endpoint,
-      //     {
-      //       params: {},
-      //     },
-      //     {
-      //       headers: {
-      //         Authorization: `Bearer ` + token,
-      //       },
-      //     }
-      //   )
-      //   .then((res) => {
-      //     return res;
-      //   })
-      //   .catch((err) => console.log(err));
     };
   }
 }

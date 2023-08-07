@@ -5,3 +5,5 @@ export { default as SignIn } from './SignIn.vue';
 export { default as ShoppingCart } from './ShoppingCart.vue';
 export { default as ProductDetails } from './ProductDetails.vue';
 export { default as Checkout } from './Checkout.vue';
+export { default as ForgetPassword } from './ForgetPassword.vue';
+export { default as ResetPassword } from './ResetPassword.vue';

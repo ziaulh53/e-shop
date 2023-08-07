@@ -16,11 +16,12 @@
                         placeholder="* * * * * *" @input="onChange" v-model="credentialData.password" name="password" />
                 </div>
                 <div class="mb-3">
-                    <EShopButton btnText="Singin" classes="w-full" :onclick="handleSubmit" :disabled="disabled" />
+                    <EShopButton btnText="Singin" classes="w-full" :onclick="handleSubmit" :disabled="disabled" :loading="loading" />
                 </div>
-                <div class="text-center">
+                <div class="">
                     <p>Don't have an account? <router-link to="/signup" class="text-blue-500 hover:underline ml-3">Click
                             here</router-link></p>
+                    <router-link to="/forget-password" class="text-blue-500 hover:underline">Forgot password?</router-link>
                 </div>
             </div>
         </div>
@@ -33,15 +34,27 @@ import { computed, ref } from 'vue';
 import { EShopButton } from '../components/shared';
 import { useAuthStore } from '../store'
 import { Layout } from '../components/Layout';
+import { useRouter } from 'vue-router'
 
 
 const userStore = useAuthStore();
+const router = useRouter();
 
 const credentialData = ref({ email: '', password: '' })
+const loading = ref(false)
 const disabled = computed(() => !credentialData.value.email || !credentialData.value.password);
-
 const handleSubmit = async () => {
-    userStore.userLogin({ ...credentialData.value })
+    loading.value = true;
+    try {
+        const res = await userStore.userLogin({ ...credentialData.value });
+        if(res.success){
+            router.push({name: 'home'})
+        }
+        
+    } catch (error) {
+        console.log(error)
+    }
+    loading.value = false
 }
 
 </script>

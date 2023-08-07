@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="mb-3 text-center">
-                    <EShopButton btnText="Create Account" classes="w-1/2" :onclick="handleSubmit" :disabled="disabled" />
+                    <EShopButton btnText="Create Account" classes="w-1/2" :onclick="handleSubmit" :disabled="disabled" :loading="loading"/>
                 </div>
                 <div class="text-center">
                     <p>Already have an Account? <router-link to="/signin" class="text-blue-500 hover:underline ml-3">Click
@@ -59,6 +59,7 @@ const userStore = useAuthStore();
 const router = useRouter()
 
 const credentialData = ref({ firstName: '', lastName: '', email: '', phone: '', password: '' })
+const loading = ref(false)
 const disabled = computed(() => {
     const { firstName, lastName, email, phone, password } = credentialData.value;
     return !firstName || !lastName || !phone || !email || !password
@@ -66,7 +67,9 @@ const disabled = computed(() => {
 );
 
 const handleSubmit = async () => {
+    loading.value = true
     const res = await userStore.userRegistration({ ...credentialData.value });
+    loading.value = true 
     if(res.success){
         router.push({name: 'signin'})
     }
