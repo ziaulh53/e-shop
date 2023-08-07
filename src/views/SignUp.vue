@@ -57,7 +57,6 @@ import { Layout } from '../components/Layout';
 
 const userStore = useAuthStore();
 const router = useRouter()
-
 const credentialData = ref({ firstName: '', lastName: '', email: '', phone: '', password: '' })
 const loading = ref(false)
 const disabled = computed(() => {
