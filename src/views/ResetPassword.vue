@@ -32,7 +32,7 @@
 
 import { computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { EShopButton } from '../components/Shared';
+import { EShopButton } from '../components/shared';
 import { useAuthStore } from '../store'
 import { Layout } from '../components/Layout';
 const userStore = useAuthStore();
