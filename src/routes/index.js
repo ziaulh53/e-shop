@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
 import {
   Home,
-  ProductList,
+  CategoryDetails,
   SignUp,
   SignIn,
   ShoppingCart,
   Checkout,
   ForgetPassword,
   ResetPassword,
+  ProductDetails,
+  TrendingsDetails
 } from "../views";
 import { useAuthStore } from "../store";
-import { computed } from "vue";
-import { storeToRefs } from "pinia";
 
 const routes = [
   {
@@ -20,9 +20,24 @@ const routes = [
     component: Home,
   },
   {
-    path: "/category/:id?",
+    path: "/category/:id",
+    name: "category",
+    component: CategoryDetails,
+  },
+  {
+    path: "/product/:id",
     name: "product",
-    component: ProductList,
+    component: ProductDetails,
+  },
+  {
+    path: "/trending",
+    name: "trending",
+    component: TrendingsDetails,
+  },
+  {
+    path: "/shopping-cart",
+    name: "shopping",
+    component: ShoppingCart,
   },
   {
     path: "/signup",
@@ -56,14 +71,7 @@ const routes = [
       requireAuth: false,
     },
   },
-  {
-    path: "/shopping-cart",
-    name: "shopping",
-    component: ShoppingCart,
-    meta: {
-      requireAuth: true,
-    },
-  },
+ 
   {
     path: "/checkout",
     name: "checkout",

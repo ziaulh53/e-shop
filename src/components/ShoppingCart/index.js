@@ -1,0 +1,1 @@
+export { default as SingleCart } from './SingleCart.vue'

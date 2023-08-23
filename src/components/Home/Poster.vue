@@ -1,13 +1,14 @@
 <template>
-    <a-carousel autoplay class="h-[300px]">
-        <div>
-            <img src="/assets/poster.jpg" class="w-full h-[300px] object-cover"/>
-        </div>
-        <div>
-            <img src="/assets/poster.jpg" class="w-full h-[300px] object-cover"/>
-        </div>
-        <div>
-            <img src="/assets/poster.jpg" class="w-full h-[300px] object-cover"/>
+    <a-carousel autoplay >
+        <div v-for="url of posters" :key="url">
+            <img :src="url || '/assets/poster.jpg'" class="w-full h-[200px] md:h-[400px] object-cover"/>
         </div>
     </a-carousel>
 </template>
+
+<script setup>
+
+defineProps({
+  posters: Array  
+})
+</script>

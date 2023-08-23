@@ -1,8 +1,6 @@
 <template>
     <Layout>
-        <div class="my-10">checkout</div>
     </Layout>
-    
 </template>
 
 <script setup>

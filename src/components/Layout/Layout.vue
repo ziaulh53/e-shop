@@ -5,7 +5,7 @@ import CustomFooter from './CustomFooter.vue';
 
 <template>
     <Navbar />
-    <main class="px-20 h-full">
+    <main class="px-5 lg:px-20 h-full">
         <slot></slot>
     </main>
     <CustomFooter/>

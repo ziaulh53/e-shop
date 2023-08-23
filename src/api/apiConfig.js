@@ -18,19 +18,19 @@ class ApiConfig {
             },
           }
         );
-        return res;
+        return res.data;
       } catch (error) {
         console.log(error)
       }
     };
-    this.get = async(endpoint, data) => {
+    this.get = async(endpoint, params) => {
       try {
         const res = await axios.get(endpoint, {params}, {
           headers: {
-
+            Authorization: token? `Bearer ` + token: "",
           }
         });
-        return res;
+        return res.data;
       } catch (error) {}
     };
   }

@@ -18,8 +18,8 @@ export const useAuthStore = defineStore("auth", {
     async userRegistration(data) {
       try {
         const res = await api.post(auth.reg, data);
-        notify(res.data)
-        return res.data;
+        notify(res)
+        return res;
       } catch (error) {
         console.log(error);
       }
@@ -27,16 +27,16 @@ export const useAuthStore = defineStore("auth", {
     async userLogin(data) {
       try {
         const res = await api.post(auth.login, data);
-        if (res.data.success) {
+        if (res.success) {
           this.auth = {
             isAuthenticated: true,
-            user: res.data?.user,
-            token: res?.data?.token,
+            user: res?.user,
+            token: res?.token,
           };
         }
-        notify(res.data)
+        notify(res)
         // window.location.reload()
-        return res.data;
+        return res;
       } catch (error) {
         console.log(error);
       }

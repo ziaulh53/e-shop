@@ -7,5 +7,5 @@ import router from './routes';
 import { createPinia } from 'pinia';
 
 
-
-createApp(App).use(createPinia()).use(router).use(Antd).mount('#app');
+const pinia = createPinia();
+createApp(App).use(pinia).use(router).use(Antd).mount('#app');

@@ -31,10 +31,10 @@
 <script setup>
 
 import { computed, ref } from 'vue';
-import { EShopButton } from '../components/shared';
 import { useAuthStore } from '../store'
-import { Layout } from '../components/Layout';
 import { useRouter } from 'vue-router'
+import { EShopButton } from '../components/shared';
+import { Layout } from '../components/Layout';
 
 
 const userStore = useAuthStore();
