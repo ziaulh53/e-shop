@@ -72,7 +72,7 @@ const handlePayment = async () => {
      border: 1px solid lightgray;
 }
 
-#card-number>input {}
+/* #card-number>input {} */
 </style>
    
 <!-- <template>
