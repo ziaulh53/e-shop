@@ -1,5 +1,5 @@
 <template>
-    <div class="border bg-white p-3 rounded-md mb-10">
+    <div class="border bg-white p-5 rounded-md mb-10">
         <div class="flex justify-between mb-5">
             <h2 class="font-semibold text-xl text-theme-color">
                 Categories

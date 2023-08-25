@@ -4,7 +4,7 @@
             <EShopSkeleton height="400px" v-if="loading" />
             <Poster v-if="homepageData?.result?.banners?.length" :posters="homepageData?.result?.banners" />
         </div>
-        <div class="border bg-white p-3 rounded-md mb-10">
+        <div class="border bg-white p-5 rounded-md mb-10">
             <div class="flex justify-between mb-5">
                 <h2 class="font-semibold text-xl text-theme-color">
                     <i class="fa-solid fa-arrow-trend-up mr-2 text-red-600"></i>Trending Now

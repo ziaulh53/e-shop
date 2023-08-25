@@ -21,7 +21,7 @@
                             </template>
                         </a-step>
                     </a-steps>
-                    <div class="bg-orange-50 rounded-md p-5">
+                    <div class="bg-slate-200 rounded-md p-5">
                         <Shipping v-if="current === 0" :shipping-address="shippingAddress" />
                         <Billing v-if="current === 1" :billing-address="billingAddress" />
                         <Payment v-if="current === 2" />
