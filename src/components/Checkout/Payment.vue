@@ -61,7 +61,6 @@ const handlePayment = async () => {
 </script>
    
 <style>
-/* Add any necessary styles for the card element */
 #card-number,
 #card-cvc,
 #card-expiry {
@@ -75,27 +74,3 @@ const handlePayment = async () => {
 /* #card-number>input {} */
 </style>
    
-<!-- <template>
-     <h6 class="text-lg font-semibold mb-6">Payment</h6>
-     <StripeElements v-if="stripeLoaded" v-slot="{ elements, instance }" ref="elms" :stripe-key="stripeKey"
-          :instance-options="instanceOptions" :elements-options="elementsOptions">
-          <StripeElement ref="card" :elements="elements" :options="cardOptions" />
-     </StripeElements>
-     <EShopButton type="button" btnText="Pay" />
-</template>
-
-<script setup>
-import { onMounted, ref } from 'vue';
-import { StripeElements, StripeElement } from 'vue-stripe-js';
-import { EShopButton } from '../shared';
-import { loadStripe } from '@stripe/stripe-js'
-import { STRIPE_PK } from '../../api';
-const stripeKey = ref(STRIPE_PK)
-const stripeLoaded = ref(false)
-onMounted(() => {
-     const stripePromise = loadStripe(stripeKey.value)
-     stripePromise.then(() => {
-          stripeLoaded.value = true
-     })
-})
-</script> -->
