@@ -14,19 +14,30 @@
                     <div ref="cardCvcElement" id="card-cvc"></div>
                </div>
           </div>
-          <div class="text-right mt-5">
-               <EShopButton btn-text="Pay USD 50" :onclick="handlePayment" />
+          <div class="flex items-center">
+               <p class="text-gray-400 font-semibold mr-2">Your payment secured by </p>
+               <a href="https://stripe.com/docs/security" target="_blank">
+                    <i class="fa-brands fa-stripe text-blue-500 text-4xl mt-2"></i>
+               </a>
           </div>
 
+          <div class="text-right mt-5">
+               <EShopButton btn-text="Pay USD 50" :onclick="onPayment" />
+          </div>
      </div>
 </template>
    
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, toRefs } from 'vue';
 import { STRIPE_PK } from '../../api';
 import { loadStripe } from '@stripe/stripe-js';
 import { EShopButton } from '../shared';
 
+const props = defineProps({
+     handlePayment: Function
+})
+
+const { handlePayment } = toRefs(props)
 
 const cardNumberElement = ref(null);
 const cardExpiryElement = ref(null);
@@ -47,15 +58,18 @@ const setupCardElement = async () => {
      cardCvc.mount("#card-cvc");
      cardNumber.on('change', event => {
           // Handle validation errors and update UI accordingly
+          // numberDisabled.value = !event.complete
      });
      cardNumberElement.value = cardNumber;
      cardExpiryElement.value = cardExpiry;
      cardCvcElement.value = cardCvc;
 };
 
-const handlePayment = async () => {
+const onPayment = async () => {
      const { token } = await stripe.value.createToken(cardNumberElement.value);
-     console.log(token)
+     if (token?.id) {
+          handlePayment.value(token)
+     }
 };
 
 </script>
@@ -64,11 +78,11 @@ const handlePayment = async () => {
 #card-number,
 #card-cvc,
 #card-expiry {
-     /* styles */
      padding: 12px;
      background-color: white;
      border-radius: 5px;
      border: 1px solid lightgray;
+     box-shadow: 1px 2px 1px 0px #dad8d8;
 }
 
 /* #card-number>input {} */

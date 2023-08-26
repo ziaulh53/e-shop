@@ -16,3 +16,7 @@ export const productEndpoint = {
 export const landingEndpoint = {
     fetchHomepage: '/landing',
 }
+
+export const orderEndpoint = {
+    createOrder: '/order/create',
+}

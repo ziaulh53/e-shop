@@ -24,16 +24,17 @@
                     <div class="bg-slate-200 rounded-md p-5">
                         <Shipping v-if="current === 0" :shipping-address="shippingAddress" />
                         <Billing v-if="current === 1" :billing-address="billingAddress" />
-                        <Payment v-if="current === 2" />
+                        <Payment v-if="current === 2" :handlePayment="handlePayment"/>
                     </div>
                     <div class="text-right mt-5">
                         <EShopButton v-if="current > 0" btn-text="Previous" :onclick="handlePrev" class="mr-5" />
-                        <EShopButton btn-text="Next" :onclick="handleNext" :disabled="(current==0 && shippingDisabled) || (current==1 && billingDisabled)"/>
+                        <EShopButton btn-text="Next" :onclick="handleNext"
+                            :disabled="(current == 0 && shippingDisabled) || (current == 1 && billingDisabled)" />
                     </div>
 
                 </div>
                 <div class="col-span-2">
-                    <OrderItems :cartItems="userCart.shoppingCart"/>
+                    <OrderItems :cartItems="userCart.shoppingCart" />
                 </div>
             </div>
         </div>
@@ -46,6 +47,8 @@ import { Layout } from '../components/Layout';
 import { EShopButton } from '../components/shared';
 import { OrderItems, Shipping, Billing, Payment } from '../components/Checkout';
 import { useCartStore } from '../store'
+import { api, orderEndpoint } from '../api';
+import { notify } from '../helpers';
 
 const userCart = useCartStore();
 const shippingAddress = ref({
@@ -80,6 +83,16 @@ const handleNext = () => {
 
 const handlePrev = () => {
     current.value = current.value - 1;
+}
+
+const handlePayment = async (token) => {
+    const items = userCart.shoppingCart?.map(item=>({
+        ...item,
+        brands: {name: item?.brands?.name, logo: item?.brands?.logo},
+        category: {name: item?.category?.name}
+    }))
+    const res = await api.post(orderEndpoint.createOrder, { token, items, shippingAddress: shippingAddress.value, billingAddress: billingAddress.value })
+    notify(res)
 }
 
 </script>
