@@ -5,11 +5,14 @@ notification.config({
   bottom: "50px",
   duration: 2,
 });
-export const notify = (data) => {
+export const notify = (data, callBackFunction) => {
   if (data.success) {
     notification.success({
       message: data?.msg,
     });
+    if (typeof callBackFunction === "function") {
+      callBackFunction();
+    }
   } else if (!data.success) {
     notification.warning({
       message: data?.msg,

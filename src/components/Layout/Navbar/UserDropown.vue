@@ -5,8 +5,8 @@
         <template #overlay>
             <a-menu class="px-2 w-[200px]">
                 <a-menu-item class="mb-2 p-2">
-                    <router-link to="/category">
-                        <i class="fa-solid fa-mobile-screen-button mr-1"></i> Account
+                    <router-link to="/account">
+                        <i class="fa-solid fa-user mr-1"></i> Account
                     </router-link>
                 </a-menu-item>
                 <a-menu-item>

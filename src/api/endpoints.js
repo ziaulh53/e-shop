@@ -20,3 +20,10 @@ export const landingEndpoint = {
 export const orderEndpoint = {
     createOrder: '/order/create',
 }
+
+export const addressEndpoint = {
+    getAddress: '/address',
+    createAddress: '/address/create',
+    editAddress: '/address/edit/',
+    deleteAddress: '/address/delete/',
+}

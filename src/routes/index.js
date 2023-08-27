@@ -9,7 +9,10 @@ import {
   ForgetPassword,
   ResetPassword,
   ProductDetails,
-  TrendingsDetails
+  TrendingsDetails,
+  OrderConfirmation,
+  StockOut,
+  Account
 } from "../views";
 import { useAuthStore } from "../store";
 
@@ -71,11 +74,34 @@ const routes = [
       requireAuth: false,
     },
   },
- 
   {
     path: "/checkout",
     name: "checkout",
     component: Checkout,
+    meta: {
+      requireAuth: true,
+    },
+  },
+  {
+    path: "/order-confirmation",
+    name: "order-confirmation",
+    component: OrderConfirmation,
+    meta: {
+      requireAuth: true,
+    },
+  },
+  {
+    path: "/stock-out",
+    name: "stock-out",
+    component: StockOut,
+    meta: {
+      requireAuth: true,
+    },
+  },
+  {
+    path: "/account",
+    name: "account",
+    component: Account,
     meta: {
       requireAuth: true,
     },

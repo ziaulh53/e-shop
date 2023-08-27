@@ -46,5 +46,8 @@ export const useCartStore = defineStore("cart", {
           item?._id !== data?._id && item?.colors?._id !== data?.colors?._id
       );
     },
+    async clearCart() {
+      this.cart = []
+   },
   },
 });

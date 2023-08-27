@@ -6,7 +6,9 @@ import CustomFooter from './CustomFooter.vue';
 <template>
     <Navbar />
     <main class="px-5 lg:px-20 h-full">
-        <slot></slot>
+        <div class="my-10 min-h-[49vh]">
+            <slot></slot> 
+        </div>
     </main>
     <CustomFooter/>
 </template>
