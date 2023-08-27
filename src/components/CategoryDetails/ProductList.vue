@@ -4,7 +4,7 @@
         <span class="md:hidden"><i class="fa-solid fa-filter text-theme-light"></i></span>
     </div>
     <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        <router-link v-for="product of data?.products" :to="'/product/' + product?._id">
+        <router-link v-for="product of data?.products" :to="'/product/' + product?._id" :key="product?._id">
             <div class="border-2 rounded-lg bg-gray-200">
                 <img :src="product?.colors[0]?.images[0] || '/assets/poster.jpg'"
                     class="h-[300px] w-full object-cover rounded-t-md" />

@@ -18,6 +18,7 @@ export const landingEndpoint = {
 }
 
 export const orderEndpoint = {
+    getOrders: '/order',
     createOrder: '/order/create',
 }
 
