@@ -2,7 +2,11 @@ export const auth = {
     login: '/auth/login',
     reg: '/auth/register',
     forgetPassword: '/auth/forget-password',
-    resetPassword: '/auth/reset-password'
+    resetPassword: '/auth/reset-password',
+    editProfile: '/auth/edit-profile',
+    changePassword: '/auth/change-password',
+    changeEmailRequest: '/auth/change-email-request',
+    changeEmail: '/auth/change-email'
 }
 
 export const categoryEndpoint = {
@@ -20,6 +24,8 @@ export const landingEndpoint = {
 export const orderEndpoint = {
     getOrders: '/order',
     createOrder: '/order/create',
+    getSingleOrder: '/order/',
+    updateStatus: '/order/update-status/'
 }
 
 export const addressEndpoint = {

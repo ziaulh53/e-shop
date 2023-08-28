@@ -6,7 +6,7 @@
             </h2>
         </div>
         <div v-if="loading" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
-            <EShopSkeleton height="250px" v-if="loading" v-for="(_idx) of new Array(5).fill(null)" />
+            <EShopSkeleton height="250px" v-if="loading" v-for="(_,idx) of new Array(5).fill(null)" :key="idx"/>
         </div>
         <div v-if="!loading" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
             <router-link v-for="category of allCategory.result" :to="'/category/'+category?._id">

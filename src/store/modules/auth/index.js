@@ -56,7 +56,7 @@ export const useAuthStore = defineStore("auth", {
     async forgetPassword(data) {
       try {
         const res = await api.post(auth.forgetPassword, data);
-        notify(res.data)
+        notify(res)
       } catch (error) {
         console.log(error);
       }
@@ -64,8 +64,41 @@ export const useAuthStore = defineStore("auth", {
     async resetPassword(data) {
       try {
         const res = await api.post(auth.resetPassword, data);
-        notify(res.data)
-        return res.data;
+        notify(res)
+        return res;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updateProfile(data) {
+      try {
+        const res = await api.post(auth.editProfile, {profileData: {...data}});
+        notify(res);
+        if(res.success){
+          this.auth = {
+            ...this.auth,
+            user: {...this.auth.user, ...data}
+          }
+        }
+        return res;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async changeEmail(data) {
+      try {
+        const res = await api.post(auth.changeEmailRequest, data);
+        notify(res)
+        return res;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async changePassword(data) {
+      try {
+        const res = await api.post(auth.changePassword, {...data});
+        notify(res)
+        return res;
       } catch (error) {
         console.log(error);
       }

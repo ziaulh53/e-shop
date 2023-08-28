@@ -1,13 +1,18 @@
 <template>
     <Layout>
         <div class="my-10">
-            <div v-if="product?.result?.colors?.length" class="grid grid-cols-4 gap-x-24">
+            <div class="grid grid-cols-4 gap-x-24">
                 <div class="col-span-2">
-                    <ImageViewer :colors="product?.result?.colors" :selected-colors="selectedColors" />
+                    <ImageViewer v-if="!loading" :colors="product?.result?.colors" :selected-colors="selectedColors" />
+                    <EShopSkeleton v-if="loading" height="400px"/>
+                    <EShopSkeleton v-if="loading" height="70px" class="mt-5"/>
                 </div>
                 <div class="col-span-2">
-                    <ProductInfo :data="product?.result" :handleSelectColor="handleSelectColor" />
-                    <div class="mb-5">
+                    <EShopSkeleton v-if="loading" height="400px" type="content"/>
+                    <EShopSkeleton v-if="loading" height="400px" type="content"/>
+                    <EShopSkeleton v-if="loading" height="400px" type="content"/>
+                    <ProductInfo v-if="!loading" :data="product?.result" :handleSelectColor="handleSelectColor" :selected-colors="selectedColors" />
+                    <div v-if="!loading" class="mb-5">
                         <EShopButton iconclass="fa-solid fa-bag-shopping" btn-text="ADD CART" :onclick="handleAddCart" />
                     </div>
                 </div>
@@ -37,14 +42,16 @@ const loading = ref(false);
 const route = useRoute()
 
 const getProductDetails = async () => {
-    loading.value = true
+    
     try {
+        loading.value = true
         product.value = await api.get(productEndpoint.fetchSingleProduct + route.params.id);
-        selectedColors.value = product.value.result?.colors[0]
+        selectedColors.value = product.value.result?.colors[0];
+        loading.value = false
     } catch (error) {
         console.log(error)
     }
-    loading.value = false
+    
 }
 
 onMounted(() => {

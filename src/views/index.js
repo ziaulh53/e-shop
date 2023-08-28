@@ -9,5 +9,7 @@ export { default as Checkout } from './Checkout.vue';
 export { default as OrderConfirmation } from './OrderConfirmation.vue';
 export { default as StockOut } from './StockOut.vue';
 export { default as Account } from './Account.vue';
+export { default as OrderDetails } from './OrderDetails.vue';
+export { default as NewEmailVerify } from './NewEmailVerify.vue';
 export { default as ForgetPassword } from './ForgetPassword.vue';
 export { default as ResetPassword } from './ResetPassword.vue';

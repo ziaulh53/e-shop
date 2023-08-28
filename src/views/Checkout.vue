@@ -22,7 +22,7 @@
                         </a-step>
                     </a-steps>
                     <div class="bg-slate-200 rounded-md p-5">
-                        <Shipping v-if="current === 0" :shipping-address="shippingAddress" />
+                        <Shipping v-if="current === 0" :handleShippingAddress="handleShippingAddress"/>
                         <Billing v-if="current === 1" :billing-address="billingAddress" />
                         <Payment v-if="current === 2" :handlePayment="handlePayment"/>
                     </div>
@@ -94,6 +94,13 @@ const handlePrev = () => {
     current.value = current.value - 1;
 }
 
+//shippiung address
+const handleShippingAddress = (value)=>{
+    shippingAddress.value= {...value}
+    billingAddress.value= {...value}
+}
+
+// create order
 const handlePayment = async (token) => {
     const items = userCart.shoppingCart?.map(item=>({
         ...item,

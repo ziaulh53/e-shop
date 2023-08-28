@@ -1,22 +1,57 @@
 <template>
     <h6 class="text-lg font-semibold mb-6">Shipping Address</h6>
     <div class="grid grid-cols-2 gap-x-5">
-        <EShopInput label="First Name" type="text" placeholder="first name" v-model="shippingAddress.firstName" />
-        <EShopInput label="Last Name" placeholder="last name" v-model="shippingAddress.lastName" />
-        <EShopInput label="Apertment (optional)" placeholder="apertment" v-model="shippingAddress.apertment" />
-        <EShopInput label="Phone" type="number" placeholder="phone number" v-model="shippingAddress.phone" />
-        <EShopInput label="Address" placeholder="address" v-model="shippingAddress.address" />
-        <EShopInput label="City" placeholder="city" v-model="shippingAddress.city" />
-        <EShopInput label="State" placeholder="state" v-model="shippingAddress.state" />
-        <EShopInput label="Country" placeholder="Country" v-model="shippingAddress.country" />
+        <a-radio-group v-model="selectAddress" @change="handleChooseAddress">
+            <a-radio v-for="address of allAddress.result" :value="address?._id" class="mb-5">
+                <div class="px-5">
+                    <p class="font-semibold text-lg">{{ address?.firstName + " " + address?.lastName }}</p>
+                    <p class="text-base"> <i class="fa-solid fa-phone text-sm mr-2"></i>{{ address?.phone }}</p>
+                    <p class="text-base">{{ address?.apertment }}</p>
+                    <p class="text-base">{{ address?.address }}</p>
+                    <p class="text-base">{{ address?.city }}, {{ address?.zipCode }}</p>
+                    <p class="text-base">{{ address?.state }}</p>
+                    <p class="text-base">{{ address?.country }}</p>
+                </div>
+            </a-radio>
+        </a-radio-group>
     </div>
 </template>
 
 <script setup>
-import { EShopInput } from '../shared';
+import { ref, onMounted, toRefs } from 'vue';
+import { addressEndpoint, api } from '../../api';
 
-defineProps({
-    shippingAddress: Object
+const props = defineProps({
+    handleShippingAddress: Function
 })
+
+const { handleShippingAddress } = toRefs(props)
+
+const allAddress = ref({})
+const selectAddress = ref('')
+const loading = ref(false)
+
+const getAddress = async () => {
+    loading.value = true
+    try {
+        allAddress.value = await api.get(addressEndpoint.getAddress);
+    } catch (error) {
+        console.log(error)
+    }
+    loading.value = false;
+}
+
+onMounted(() => {
+    getAddress();
+})
+
+
+const handleChooseAddress = e => {
+    selectAddress.value = e.target.value
+    const findAddress = allAddress.value.result?.find(res => res?._id === e.target.value);
+    delete findAddress.user;
+    delete findAddress._id;
+    handleShippingAddress.value(findAddress);
+}
 
 </script>

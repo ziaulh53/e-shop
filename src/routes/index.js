@@ -12,7 +12,9 @@ import {
   TrendingsDetails,
   OrderConfirmation,
   StockOut,
-  Account
+  Account,
+  NewEmailVerify,
+  OrderDetails
 } from "../views";
 import { useAuthStore } from "../store";
 
@@ -75,6 +77,14 @@ const routes = [
     },
   },
   {
+    path: "/change-email-verification",
+    name: "new-email-verification",
+    component: NewEmailVerify,
+    meta: {
+      requireAuth: false,
+    },
+  },
+  {
     path: "/checkout",
     name: "checkout",
     component: Checkout,
@@ -102,6 +112,14 @@ const routes = [
     path: "/account",
     name: "account",
     component: Account,
+    meta: {
+      requireAuth: true,
+    },
+  },
+  {
+    path: "/order-details/:id",
+    name: "order-details",
+    component: OrderDetails,
     meta: {
       requireAuth: true,
     },
