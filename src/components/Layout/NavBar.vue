@@ -3,7 +3,7 @@
         <div class="h-full px-5 lg:px-20 flex items-center justify-between">
             <router-link to="/"><img src="/assets/logo.png" class="w-[40px]" /></router-link>
             <div>
-                <Dropdown />
+                <Dropdown :category="allCategories" />
                 <router-link to="/shopping-cart" class="px-4 py-2  mx-2 text-white font-semibold hover:bg-slate-600">
                     <a-badge :count="cartStore.shoppingCart.length">
                         <i class="fa-solid fa-cart-shopping mr-1 text-white text-xl"></i>
@@ -20,10 +20,18 @@
 </template>
 
 <script setup>
-import Dropdown from './Navbar/Dropdown.vue';
+import { onMounted, computed } from 'vue';
+import Dropdown from './NavBar/Dropdown.vue';
 import UserDropdown from './Navbar/UserDropown.vue'
-import { useAuthStore, useCartStore } from '../../store';
+import { useAuthStore, useCartStore, useCategoryStore } from '../../store';
 
 const { isAuthenticated } = useAuthStore().auth;
+const categoryStore = useCategoryStore();
 const cartStore = useCartStore();
+
+const allCategories = computed(() => categoryStore.category)
+
+onMounted(() => {
+    categoryStore.fetchCateogries();
+})
 </script>

@@ -1,7 +1,6 @@
 <template>
     <a-dropdown placement="bottom">
-        <img class="px-4 py-2 inline-block  mx-2 text-white font-semibold hover:bg-slate-600" src="/assets/logo.png"
-            width="60" />
+        <img class="inline-block  mx-2 text-white font-semibold hover:bg-slate-600 w-[40px] h-[40px] rounded-full" :src="user?.user?.avatar ||'/assets/logo.png'" />
         <template #overlay>
             <a-menu class="px-2 w-[200px]">
                 <a-menu-item class="mb-2 p-2">
@@ -21,9 +20,10 @@
 
 <script setup>
 import { useAuthStore } from '../../../store';
-const store = useAuthStore();
+
+const { userLogout, user } = useAuthStore();
 
 const onLogout = () => {
-    store.userLogout();
+    userLogout();
 }
 </script>
