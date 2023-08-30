@@ -8,6 +8,13 @@
                 </h2>
                 <EShopSkeleton v-if="loading" type="content" :conten-number="3"/>
                 <AddressDetails v-if="!loading" :data="order?.result?.shippingAddress" title="Shipping Details" />
+                <!-- <a-card v-if="order?.result?.logistics" class="border border-gray-300">
+                    <h2 class="text-lg font-semibold uppercase mb-5">Logistic Details:</h2>
+                    <div>
+                        <p class="text-base">Name: <span class="font-bold">REDX</span></p>
+                        <div class="text-base">Tracking: <a href="https://www.facebook.com" class="text-blue-600">Click Here</a></div>
+                    </div>
+                </a-card> -->
             </div>
             <div>
                 <Status :data="order?.result" :refetch="getOrderDetails"/>

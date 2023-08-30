@@ -2,21 +2,22 @@
     <Layout>
         <div class="grid grid-cols-6 my-8 gap-5">
             <div class="hidden md:block col-span-2 lg:col-span-1">
-                <Filters :brands="category.result?.brands" />
+                <Filters :brands="category.result?.brands" :handleFilterSubmit="handleFilterSubmit" />
             </div>
 
             <div v-if="category.result?.products?.length" class="col-span-6 md:col-span-4 lg:col-span-5">
-                <ProductList :data="category.result" />
+                <a-spin :spinning="loading && category.result?.products?.length">
+                    <ProductList :data="category.result" />
+                </a-spin>
             </div>
-            <div v-if="loading" class="col-span-6 md:col-span-4 lg:col-span-5">
+            <div v-if="loading && !category.result?.products?.length" class="col-span-6 md:col-span-4 lg:col-span-5">
                 <div class="mb-3">
                     <EShopSkeleton height="41px" />
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                    <EShopSkeleton height="300px" type="box" v-for="(_, idx) of new Array(8).fill(null)" :key="idx"/>
+                    <EShopSkeleton height="300px" type="box" v-for="(_, idx) of new Array(8).fill(null)" :key="idx" />
                 </div>
             </div>
-
         </div>
     </Layout>
 </template>
@@ -30,13 +31,16 @@ import { useRoute } from 'vue-router';
 import { EShopSkeleton } from '../components/shared';
 const category = ref('');
 const loading = ref(false);
-
+const filters = ref({
+    maxPrice: 1200,
+    brands: []
+})
 const route = useRoute()
 
 const getCategoryDetails = async () => {
     loading.value = true
     try {
-        category.value = await api.get(categoryEndpoint.fetchSingleCategory + route.params.id)
+        category.value = await api.get(categoryEndpoint.fetchSingleCategory + route.params.id, { ...filters.value })
     } catch (error) {
         console.log(error)
     }
@@ -45,6 +49,13 @@ const getCategoryDetails = async () => {
 onMounted(() => {
     getCategoryDetails()
 })
+
+const handleFilterSubmit = (filter) => {
+    filters.value = {
+        ...filter
+    }
+    getCategoryDetails()
+}
 
 
 </script>

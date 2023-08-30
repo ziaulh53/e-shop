@@ -16,7 +16,7 @@
             <div v-if="loading" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
                 <EShopSkeleton height="300px" v-if="loading" v-for="(_idx) of new Array(5).fill(null)" />
             </div>
-            <div v-if="!loading" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5  gap-5">
+            <div v-if="!loading" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
                 <Trending v-for="product of homepageData.result?.trendings" :key="product._id" :data="product" />
             </div>
         </div>
