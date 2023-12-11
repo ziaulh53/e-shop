@@ -1,30 +1,29 @@
 <template>
-    <div class="col-span-1 flex items-center">
-        <img :alt="cart?.colors?.images[0]" :src="cart?.colors?.images[0]" class="h-[100px]" />
-    </div>
-    <div class="col-span-1 flex items-center">
-        <h6 class="font-semibold text-lg">{{ cart?.name }}</h6>
-    </div>
-    <div class="col-span-1 flex items-center">
-        <p class="font-semibold text-lg  mr-2">Color: {{ cart?.colors?.colorName }}</p>
-        <div class="w-[20px] h-[20px] rounded-full border-2 border-black" :style="{ background: cart?.colors?.colorCode }">
+    <div class="flex w-2/5">
+        <div class="w-20">
+            <img class="h-24" :src="cart?.colors?.images[0]" alt="">
+        </div>
+        <div class="ml-4">
+            <div class="font-bold text-sm mb-5">{{ cart?.name }}</div>
+            <div class="text-red-500 text-xs">Color: {{ cart?.colors?.color?.colorName }}</div>
+            <!-- <a href="#" class="font-semibold hover:text-red-500 text-gray-500 text-xs">Remove</a> -->
         </div>
     </div>
-    <div class="col-span-2 md:col-span-1 flex items-center">
-        <div class="font-semibold text-lg">Quantity:
-            <button class="bg-theme-color px-1 mr-2 disabled:bg-slate-400" :disabled="cart?.quantity < 2"
-                @click="() => handleQuantityDecrease(cart)">
-                <i class="fa-solid fa-chevron-down text-sm text-white"></i>
-            </button>
-            {{ cart?.quantity }}
-            <button class="bg-theme-color px-1 py-0 disabled:bg-slate-400 ml-2" @click="() => handleQuantityIncrease(cart)">
-                <i class="fa-solid fa-chevron-up text-sm text-white "></i>
-            </button>
-        </div>
+    <div class="text-center w-1/5 font-semibold text-sm">USD {{ cart?.price }}</div>
+    <div class="flex justify-center w-1/5">
+        <button @click="() => cartQuantityDecrease(cart)"><span class="text-gray-600"><i
+                    class="fas fa-minus"></i></span></button>
+
+        <input class="mx-2 border text-center w-8" type="text" :value="cart?.quantity">
+
+        <button @click="() => cartQuantityIncrease(cart)"><span class="text-gray-600"><i
+                    class="fas fa-plus"></i></span></button>
     </div>
-    <div class="col-span-1 flex items-center">
-        <span @click="() => handleDelete(cart)" class="cursor-pointer"><i class="fa-solid fa-trash text-red-500"></i></span>
-    </div>
+
+    <div class="text-center w-1/5 font-semibold text-sm">USD {{ cart?.price * cart?.quantity }}</div>
+    <button @click="() => singleCartItemDelete(cart)" class="absolute text-red-600 right-10">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
 </template>
 
 <script setup>
@@ -34,16 +33,7 @@ defineProps({
     cart: Object
 })
 
-const cartStore = useCartStore();
+const { singleCartItemDelete, cartQuantityIncrease, cartQuantityDecrease } = useCartStore();
 
-const handleDelete = (cart) => {
-    cartStore.singleCartItemDelete(cart)
-}
 
-const handleQuantityIncrease = (cart) => {
-    cartStore.cartQuantityIncrease(cart)
-}
-const handleQuantityDecrease = (cart) => {
-    cartStore.cartQuantityDecrease(cart)
-}
 </script>

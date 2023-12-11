@@ -19,6 +19,7 @@ export const productEndpoint = {
 
 export const landingEndpoint = {
     fetchHomepage: '/landing',
+    getAllbrands: "/landing/brands"
 }
 
 export const orderEndpoint = {

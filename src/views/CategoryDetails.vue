@@ -1,6 +1,6 @@
 <template>
     <Layout>
-        <div class="grid grid-cols-6 my-8 gap-5">
+        <div class="grid grid-cols-6 my-8 gap-5" :key="route.params.id">
             <div class="hidden md:block col-span-2 lg:col-span-1">
                 <Filters :brands="category.result?.brands" :handleFilterSubmit="handleFilterSubmit" />
             </div>
@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { Layout } from '../components/Layout';
 import { Filters, ProductList } from '../components/CategoryDetails';
 import { api, categoryEndpoint } from '../api';
@@ -32,7 +32,7 @@ import { EShopSkeleton } from '../components/shared';
 const category = ref('');
 const loading = ref(false);
 const filters = ref({
-    maxPrice: 1200,
+    maxPrice: 10000,
     brands: []
 })
 const route = useRoute()
@@ -50,6 +50,10 @@ onMounted(() => {
     getCategoryDetails()
 })
 
+// Watch for changes in the route.params.id
+watch(() => route.params.id, () => {
+    getCategoryDetails();
+});
 const handleFilterSubmit = (filter) => {
     filters.value = {
         ...filter

@@ -1,1 +1,1 @@
-export { default as SingleCart } from './SingleCart.vue'
+export { default as CartContainer } from './CartContainer.vue'

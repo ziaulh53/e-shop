@@ -1,8 +1,11 @@
 <template>
     <Layout>
-        <div class="my-10">
-            <EShopSkeleton height="400px" v-if="loading" />
-            <Poster v-if="homepageData?.result?.banners?.length" :posters="homepageData?.result?.banners" />
+        <div class="my-10 grid grid-cols-1 md:grid-cols-3 gap-5">
+            <Brands />
+            <div class="col-span-2 rounded-lg">
+                <EShopSkeleton height="400px" v-if="loading" />
+                <Poster v-if="homepageData?.result?.banners?.length" :posters="homepageData?.result?.banners" />
+            </div>
         </div>
         <div class="border bg-white p-5 rounded-md mb-10">
             <div class="flex justify-between mb-5">
@@ -16,9 +19,7 @@
             <div v-if="loading" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
                 <EShopSkeleton height="300px" v-if="loading" v-for="(_idx) of new Array(5).fill(null)" />
             </div>
-            <div v-if="!loading" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
-                <Trending v-for="product of homepageData.result?.trendings" :key="product._id" :data="product" />
-            </div>
+            <ECarousel v-if="!loading" :items="homepageData.result?.trendings" />
         </div>
         <Categories />
     </Layout>
@@ -26,10 +27,10 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { Poster, Trending, Categories } from '../components/Home';
+import { Poster, Categories, Brands } from '../components/Home';
 import { Layout } from '../components/Layout';
 import { api, landingEndpoint } from '../api';
-import { EShopSkeleton } from '../components/shared';
+import { EShopSkeleton, ECarousel } from '../components/shared';
 
 const homepageData = ref({});
 const loading = ref(false);

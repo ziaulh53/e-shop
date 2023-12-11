@@ -31,23 +31,33 @@ export const useCartStore = defineStore("cart", {
         (item) =>
           item?._id === data?._id && item?.colors?._id === data?.colors?._id
       );
-      this.cart[findIdx] = { ...this.cart[findIdx], quantity: this.cart[findIdx].quantity + 1 };
+      this.cart[findIdx] = {
+        ...this.cart[findIdx],
+        quantity: this.cart[findIdx].quantity + 1,
+      };
+      // Optionally: Perform optimistic update and API call here
     },
     async cartQuantityDecrease(data) {
       const findIdx = this.cart.findIndex(
         (item) =>
           item?._id === data?._id && item?.colors?._id === data?.colors?._id
       );
-      this.cart[findIdx] = { ...this.cart[findIdx], quantity: this.cart[findIdx].quantity - 1 };
+      this.cart[findIdx] = {
+        ...this.cart[findIdx],
+        quantity: this.cart[findIdx].quantity - 1,
+      };
+      // Optionally: Perform optimistic update and API call here
     },
     async singleCartItemDelete(data) {
-       this.cart = this.cart.filter(
+      this.cart = this.cart.filter(
         (item) =>
           item?._id !== data?._id && item?.colors?._id !== data?.colors?._id
       );
+      // Optionally: Perform optimistic update and API call here
     },
     async clearCart() {
-      this.cart = []
-   },
+      this.cart = [];
+      // Optionally: Perform optimistic update and API call here
+    },
   },
 });
