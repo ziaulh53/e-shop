@@ -22,7 +22,7 @@
           </div>
 
           <div class="text-right mt-5">
-               <EShopButton btn-text="Pay USD 50" :onclick="onPayment" />
+               <EShopButton :loading="loading" :btn-text="'Pay USD ' + (totalPrice + 80)" :onclick="onPayment" />
           </div>
      </div>
 </template>
@@ -34,15 +34,17 @@ import { loadStripe } from '@stripe/stripe-js';
 import { EShopButton } from '../shared';
 
 const props = defineProps({
-     handlePayment: Function
+     handlePayment: Function,
+     totalPrice: Number
 })
 
-const { handlePayment } = toRefs(props)
+const { handlePayment, totalPrice } = toRefs(props)
 
 const cardNumberElement = ref(null);
 const cardExpiryElement = ref(null);
 const cardCvcElement = ref(null);
 const stripe = ref(null);
+const loading = ref(null);
 
 onMounted(() => {
      setupCardElement();
@@ -66,10 +68,12 @@ const setupCardElement = async () => {
 };
 
 const onPayment = async () => {
+     loading.value = true
      const { token } = await stripe.value.createToken(cardNumberElement.value);
      if (token?.id) {
           handlePayment.value(token)
      }
+     loading.value = false;
 };
 
 </script>

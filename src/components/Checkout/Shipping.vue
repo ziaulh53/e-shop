@@ -1,16 +1,17 @@
 <template>
     <h6 class="text-lg font-semibold mb-6">Shipping Address</h6>
-    <div class="grid grid-cols-2 gap-x-5">
+    <div v-if="!loading && allAddress?.result?.length === 0" class="text-center">
+        <router-link to="/account" class="py-2 px-2 bg-theme-color text-white rounded-lg">+ Add Address</router-link>
+    </div>
+    <div class="grid md:grid-cols-2 gap-x-5">
         <a-radio-group v-model="selectAddress" @change="handleChooseAddress">
             <a-radio v-for="address of allAddress.result" :value="address?._id" class="mb-5">
                 <div class="px-5">
                     <p class="font-semibold text-lg">{{ address?.firstName + " " + address?.lastName }}</p>
+                    <p class="text-base">{{ address?.apertment }} , {{ address?.address }}</p>
+                    <p class="text-base">{{ address?.city }}, {{ address?.state }}-{{ address?.zipCode }} , {{
+                        address?.country }}</p>
                     <p class="text-base"> <i class="fa-solid fa-phone text-sm mr-2"></i>{{ address?.phone }}</p>
-                    <p class="text-base">{{ address?.apertment }}</p>
-                    <p class="text-base">{{ address?.address }}</p>
-                    <p class="text-base">{{ address?.city }}, {{ address?.zipCode }}</p>
-                    <p class="text-base">{{ address?.state }}</p>
-                    <p class="text-base">{{ address?.country }}</p>
                 </div>
             </a-radio>
         </a-radio-group>

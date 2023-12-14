@@ -9,7 +9,14 @@
             <!-- <a href="#" class="font-semibold hover:text-red-500 text-gray-500 text-xs">Remove</a> -->
         </div>
     </div>
-    <div class="text-center w-1/5 font-semibold text-sm">USD {{ cart?.price }}</div>
+    <div class="text-center w-1/5 font-semibold text-sm"><span
+            :class="cart?.discountAvailable ? 'text-red-600' : ''">USD {{
+                cart?.discountAvailable ? cart?.discountPrice :
+                cart?.price }}</span>
+        <span v-if="cart?.discountAvailable" class="text-gray-500">
+            <s> USD {{ cart?.price }}</s>
+        </span>
+    </div>
     <div class="flex justify-center w-1/5">
         <button @click="() => cartQuantityDecrease(cart)"><span class="text-gray-600"><i
                     class="fas fa-minus"></i></span></button>

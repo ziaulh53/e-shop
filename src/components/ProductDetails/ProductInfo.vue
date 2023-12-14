@@ -3,8 +3,6 @@
         <h1 class="text-3xl font-semibold">{{ data?.name }}</h1>
     </div>
     <div class="mb-5">
-        <!-- <h6 class="text-lg">Price: USD {{ data?.discountAvailable ? data?.discountPrice : data?.price }} <span
-                v-if="data?.discountAvailable"><s class="italic">{{ data?.price }}</s></span></h6> -->
         <p class="font-semibold">Price: <span
                 :class="data?.discountAvailable ? 'text-red-600 font-bold' : 'font-bold'">USD {{
                     data?.discountAvailable ? data?.discountPrice :

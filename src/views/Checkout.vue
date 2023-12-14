@@ -22,19 +22,19 @@
                         </a-step>
                     </a-steps>
                     <div class="bg-slate-200 rounded-md p-5">
-                        <Shipping v-if="current === 0" :handleShippingAddress="handleShippingAddress"/>
+                        <Shipping v-if="current === 0" :handleShippingAddress="handleShippingAddress" />
                         <Billing v-if="current === 1" :billing-address="billingAddress" />
-                        <Payment v-if="current === 2" :handlePayment="handlePayment"/>
+                        <Payment v-if="current === 2" :handlePayment="handlePayment" :total-price="totalPrice" />
                     </div>
                     <div class="text-right mt-5">
                         <EShopButton v-if="current > 0" btn-text="Previous" :onclick="handlePrev" class="mr-5" />
-                        <EShopButton v-if="current<2" btn-text="Next" :onclick="handleNext"
+                        <EShopButton v-if="current < 2" btn-text="Next" :onclick="handleNext"
                             :disabled="(current == 0 && shippingDisabled) || (current == 1 && billingDisabled)" />
                     </div>
 
                 </div>
                 <div class="col-span-2">
-                    <OrderItems :cartItems="userCart.shoppingCart" :totalPrice="totalPrice"/>
+                    <OrderItems :cartItems="userCart.shoppingCart" :totalPrice="totalPrice" />
                 </div>
             </div>
         </div>
@@ -80,9 +80,9 @@ const totalPrice = ref(0);
 const shippingDisabled = computed(() => !shippingAddress?.value.firstName || !shippingAddress?.value.lastName || !shippingAddress?.value.firstName || !shippingAddress?.value.phone || !shippingAddress?.value.address || !shippingAddress?.value.city || !shippingAddress?.value.state || !shippingAddress?.value.country);
 const billingDisabled = computed(() => !billingAddress?.value.firstName || !billingAddress?.value.lastName || !billingAddress?.value.firstName || !billingAddress?.value.phone || !billingAddress?.value.address || !billingAddress?.value.city || !billingAddress?.value.state || !shippingAddress?.value.country);
 
-onMounted(()=>{
-    userCart.shoppingCart.forEach(({discountAvailable, price, discountPrice,quantity})=>{
-        totalPrice.value = totalPrice.value+((discountAvailable? discountPrice:price)*quantity);
+onMounted(() => {
+    userCart.shoppingCart.forEach(({ discountAvailable, price, discountPrice, quantity }) => {
+        totalPrice.value = totalPrice.value + ((discountAvailable ? discountPrice : price) * quantity);
     })
 })
 
@@ -95,26 +95,26 @@ const handlePrev = () => {
 }
 
 //shippiung address
-const handleShippingAddress = (value)=>{
-    shippingAddress.value= {...value}
-    billingAddress.value= {...value}
+const handleShippingAddress = (value) => {
+    shippingAddress.value = { ...value }
+    billingAddress.value = { ...value }
 }
 
 // create order
 const handlePayment = async (token) => {
-    const items = userCart.shoppingCart?.map(item=>({
+    const items = userCart.shoppingCart?.map(item => ({
         ...item,
-        brands: {name: item?.brands?.name, logo: item?.brands?.logo},
-        category: {name: item?.category?.name}
+        brands: { name: item?.brands?.name, logo: item?.brands?.logo },
+        category: { name: item?.category?.name }
     }))
     const res = await api.post(orderEndpoint.createOrder, { token, items, shippingAddress: shippingAddress.value, billingAddress: billingAddress.value })
-    if(res.success){
+    if (res.success) {
         notify(res);
-        router.push({name:'order-confirmation'})
+        router.push({ name: 'order-confirmation' })
         userCart.clearCart()
-    } else if (res?.isStockout){
+    } else if (res?.isStockout) {
         notify(res);
-        router.push({name:'stock-out'})
+        router.push({ name: 'stock-out' })
         userCart.clearCart()
     } else {
         notify(res)

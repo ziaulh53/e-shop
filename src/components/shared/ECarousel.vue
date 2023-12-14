@@ -1,6 +1,6 @@
 <template>
     <div class="relative">
-        <swiper :modules="modules" :slides-per-view="1" :speed="300" :autoplay="{ delay: 2000 }" :space-between="50"
+        <swiper :modules="modules" :slides-per-view="1" :speed="300" :autoplay="autoplay" :space-between="50"
             :breakpoints="{
                 546: {
                     slidesPerView: 2
@@ -38,7 +38,11 @@ import { Trending } from '../Home';
 import { Autoplay } from 'swiper/modules';
 
 const props = defineProps({
-    items: Array
+    items: Array,
+    autoplay: {
+        type: Boolean,
+        default: true
+    }
 })
 
 const { items } = toRefs(props)

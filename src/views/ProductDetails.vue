@@ -1,7 +1,7 @@
 <template>
     <Layout>
         <div class="my-10">
-            <div class="grid grid-cols-1 md:grid-cols-7 gap-x-24">
+            <div class="grid md:grid-cols-7 gap-x-24 mb-14">
                 <div class="md:col-span-3">
                     <ImageViewer v-if="!loading" :colors="product?.result?.colors" :selected-colors="selectedColors" />
                     <EShopSkeleton v-if="loading" height="400px" />
@@ -14,9 +14,13 @@
                     <ProductInfo v-if="!loading" :data="product?.result" :handleSelectColor="handleSelectColor"
                         :selected-colors="selectedColors" />
                     <div v-if="!loading" class="my-5">
-                        <EShopButton iconclass="fa-solid fa-bag-shopping" classes="font-semibold mr-10" btn-text="ADD CART"
-                            :onclick="handleAddCart" />
-                       <AddWish/>
+                        <EShopButton :disabled="selectedColors?.quantity < 2" iconclass="fa-solid fa-bag-shopping"
+                            classes="font-semibold mr-10" btn-text="ADD CART" :onclick="handleAddCart" />
+                        <AddWish />
+                    </div>
+
+                    <div v-if="selectedColors?.quantity < 2">
+                        <button class="px-8 py-2 bg-red-500 text-white">SOLD OUT</button>
                     </div>
 
                     <div class="mt-10">
@@ -25,6 +29,7 @@
                     </div>
                 </div>
             </div>
+            <ExploreMore v-if="product?.result" :category-id="product?.result?.category?._id" />
         </div>
     </Layout>
 </template>
@@ -35,7 +40,7 @@ import { Layout } from '../components/Layout';
 import { api, productEndpoint } from '../api';
 import { useRoute } from 'vue-router';
 import { useCartStore } from '../store'
-import { ImageViewer, ProductInfo, AddWish } from '../components/ProductDetails'
+import { ImageViewer, ProductInfo, AddWish, ExploreMore } from '../components/ProductDetails'
 
 import { EShopButton, EShopSkeleton } from '../components/shared';
 

@@ -16,7 +16,7 @@
             <div class="flex justify-between items-center">
                 <div class="font-bold text-lg">Total Price:</div>
                 <div class="w-[62%] h-[1px] bg-gray-600"></div>
-                <div class="font-bold text-gray-00">USD {{ totalPrice }}</div>
+                <div class="font-bold text-gray-00">USD {{ totalPrice+80 }}</div>
             </div>
 
         </div>
