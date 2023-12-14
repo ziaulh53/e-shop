@@ -10,6 +10,15 @@
                 </template>
                 <Order />
             </a-tab-pane>
+            <a-tab-pane key="Wish List">
+                <template #tab>
+                    <span>
+                        <i class="fa-solid fa-file-invoice mr-2 text-base"></i>
+                        <span class="font-bold text-lg">Wish List</span>
+                    </span>
+                </template>
+                <WishList />
+            </a-tab-pane>
             <a-tab-pane key="Address">
                 <template #tab>
                     <span>
@@ -33,6 +42,6 @@
 </template>
 <script setup>
 import { Layout } from '../components/Layout';
-import { Addresses, Order, Profile } from '../components/Account';
+import { Addresses, Order, Profile, WishList } from '../components/Account';
 
 </script>

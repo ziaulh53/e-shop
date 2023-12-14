@@ -12,6 +12,6 @@ export const getStatusColor = (status) => {
       return "red";
 
     default:
-      return 'green';
+      return "green";
   }
 };

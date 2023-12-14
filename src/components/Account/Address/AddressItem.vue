@@ -2,12 +2,9 @@
     <a-card class="bg-white" :hoverable="true">
         <div>
             <p class="font-semibold text-lg">{{ address?.firstName + " " + address?.lastName }}</p>
+            <p class="text-base">{{ address?.apertment }} , {{ address?.address }}</p>
+            <p class="text-base">{{ address?.city }}, {{ address?.state }}-{{ address?.zipCode }} , {{ address?.country }}</p>
             <p class="text-base"> <i class="fa-solid fa-phone text-sm mr-2"></i>{{ address?.phone }}</p>
-            <p class="text-base">{{ address?.apertment }}</p>
-            <p class="text-base">{{ address?.address }}</p>
-            <p class="text-base">{{ address?.city }}, {{ address?.zipCode }}</p>
-            <p class="text-base">{{ address?.state }}</p>
-            <p class="text-base">{{ address?.country }}</p>
         </div>
         <template class="ant-card-actions" #actions>
             <span @click="handleDelete"><i class="fa-solid fa-trash text-red-600"></i></span>

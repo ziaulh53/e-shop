@@ -29,6 +29,11 @@ export const orderEndpoint = {
     updateStatus: '/order/update-status/'
 }
 
+export const wishEndpoint = {
+    getWishItems: '/wish',
+    addWish: '/wish/create',
+}
+
 export const addressEndpoint = {
     getAddress: '/address',
     createAddress: '/address/create',

@@ -1,19 +1,27 @@
 <template>
     <Layout>
         <div class="my-10">
-            <div class="grid grid-cols-4 gap-x-24">
-                <div class="col-span-2">
+            <div class="grid grid-cols-1 md:grid-cols-7 gap-x-24">
+                <div class="md:col-span-3">
                     <ImageViewer v-if="!loading" :colors="product?.result?.colors" :selected-colors="selectedColors" />
-                    <EShopSkeleton v-if="loading" height="400px"/>
-                    <EShopSkeleton v-if="loading" height="70px" class="mt-5"/>
+                    <EShopSkeleton v-if="loading" height="400px" />
+                    <EShopSkeleton v-if="loading" height="70px" class="mt-5" />
                 </div>
-                <div class="col-span-2">
-                    <EShopSkeleton v-if="loading" height="400px" type="content"/>
-                    <EShopSkeleton v-if="loading" height="400px" type="content"/>
-                    <EShopSkeleton v-if="loading" height="400px" type="content"/>
-                    <ProductInfo v-if="!loading" :data="product?.result" :handleSelectColor="handleSelectColor" :selected-colors="selectedColors" />
-                    <div v-if="!loading" class="mb-5">
-                        <EShopButton iconclass="fa-solid fa-bag-shopping" btn-text="ADD CART" :onclick="handleAddCart" />
+                <div class="md:col-span-4">
+                    <EShopSkeleton v-if="loading" height="400px" type="content" />
+                    <EShopSkeleton v-if="loading" height="400px" type="content" />
+                    <EShopSkeleton v-if="loading" height="400px" type="content" />
+                    <ProductInfo v-if="!loading" :data="product?.result" :handleSelectColor="handleSelectColor"
+                        :selected-colors="selectedColors" />
+                    <div v-if="!loading" class="my-5">
+                        <EShopButton iconclass="fa-solid fa-bag-shopping" classes="font-semibold mr-10" btn-text="ADD CART"
+                            :onclick="handleAddCart" />
+                       <AddWish/>
+                    </div>
+
+                    <div class="mt-10">
+                        <div class="mb-3 text-xl font-[600]"> Specifications:</div>
+                        <div v-html="product?.result?.description"></div>
                     </div>
                 </div>
             </div>
@@ -27,7 +35,7 @@ import { Layout } from '../components/Layout';
 import { api, productEndpoint } from '../api';
 import { useRoute } from 'vue-router';
 import { useCartStore } from '../store'
-import { ImageViewer, ProductInfo } from '../components/ProductDetails'
+import { ImageViewer, ProductInfo, AddWish } from '../components/ProductDetails'
 
 import { EShopButton, EShopSkeleton } from '../components/shared';
 
@@ -42,7 +50,7 @@ const loading = ref(false);
 const route = useRoute()
 
 const getProductDetails = async () => {
-    
+
     try {
         loading.value = true
         product.value = await api.get(productEndpoint.fetchSingleProduct + route.params.id);
@@ -51,7 +59,7 @@ const getProductDetails = async () => {
     } catch (error) {
         console.log(error)
     }
-    
+
 }
 
 onMounted(() => {

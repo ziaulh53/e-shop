@@ -3,8 +3,16 @@
         <h1 class="text-3xl font-semibold">{{ data?.name }}</h1>
     </div>
     <div class="mb-5">
-        <h6 class="text-lg">Price: USD {{ data?.discountAvailable ? data?.discountPrice : data?.price }} <span
-                v-if="data?.discountAvailable"><s class="italic">{{ data?.price }}</s></span></h6>
+        <!-- <h6 class="text-lg">Price: USD {{ data?.discountAvailable ? data?.discountPrice : data?.price }} <span
+                v-if="data?.discountAvailable"><s class="italic">{{ data?.price }}</s></span></h6> -->
+        <p class="font-semibold">Price: <span
+                :class="data?.discountAvailable ? 'text-red-600 font-bold' : 'font-bold'">USD {{
+                    data?.discountAvailable ? data?.discountPrice :
+                    data?.price }}</span>
+            <span v-if="data?.discountAvailable" class="text-gray-500 font-bold">
+                <s> USD {{ data?.price }}</s>
+            </span>
+        </p>
     </div>
     <div class="flex">
         <div class="mr-20">
@@ -17,10 +25,8 @@
             <p class="text-gray-500 font-semibold">Brand: <span class="text-blue-500">{{ data?.brands?.name }}</span></p>
         </div>
     </div>
-    <div v-html="data?.description" class="my-5">
-    </div>
-    <div class="mb-4">
-        Colors:
+    <div class="my-5">
+        <span class="text-orange-500"><i class="fa-solid fa-palette"></i></span> Colors:
         <div class="flex mt-2">
             <div v-for="({ color, _id }, idx) of data?.colors" :key="_id" @click="() => handleSelectColor(idx)"
                 :class="(selectedColors?.color?._id === color?._id ? 'border-2 border-black' : 'border border-gray-400') + ' w-[20px] h-[18px] rounded-full mr-2 cursor-pointer'"

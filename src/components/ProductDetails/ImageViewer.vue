@@ -1,7 +1,7 @@
 <template>
-    <div v-if="selectedColors._id">
+    <div v-if="selectedColors?._id" class="border-r-2 border-gray-300">
         <VueMagnifier :src="selectedColors?.images[idx] || '/assets/logo.png'"
-            class-name="h-[400px] w-full object-cover mb-4" height="300" style="{object-fit: cover;}" />
+            class-name="w-[300] object-cover mb-4" height="500" style="{object-fit: cover;}" />
         <div class="flex justify-start">
             <div v-for="(url, index) of selectedColors?.images" :key="url" @click="()=>onSelectImage(index)"
                 class="w-[70px] h-[70px] border-2 border-gray-400 cursor-pointer mr-2 relative">
