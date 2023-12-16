@@ -1,0 +1,24 @@
+{
+  "name": "Your App Name",
+  "short_name": "App Short Name",
+  "description": "Your app description",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4DBA87",
+  "icons": [
+    {
+      "src": "/img/icons/mstile-150x150.png",
+      "sizes": "150x150",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/screenshot1.png",
+      "sizes": "1280x800",
+      "type": "image/png"
+    }
+  ]
+}
