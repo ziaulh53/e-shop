@@ -9,10 +9,9 @@
             <!-- <a href="#" class="font-semibold hover:text-red-500 text-gray-500 text-xs">Remove</a> -->
         </div>
     </div>
-    <div class="text-center w-1/5 font-semibold text-sm"><span
-            :class="cart?.discountAvailable ? 'text-red-600' : ''">USD {{
-                cart?.discountAvailable ? cart?.discountPrice :
-                cart?.price }}</span>
+    <div class="text-center w-1/5 font-semibold text-sm"><span :class="cart?.discountAvailable ? 'text-red-600' : ''">USD {{
+        cart?.discountAvailable ? cart?.discountPrice :
+        cart?.price }}</span>
         <span v-if="cart?.discountAvailable" class="text-gray-500">
             <s> USD {{ cart?.price }}</s>
         </span>
@@ -27,7 +26,8 @@
                     class="fas fa-plus"></i></span></button>
     </div>
 
-    <div class="text-center w-1/5 font-semibold text-sm">USD {{ cart?.price * cart?.quantity }}</div>
+    <div class="text-center w-1/5 font-semibold text-sm">USD {{ (cart?.discountAvailable ? cart?.discountPrice : cart?.price)
+        * cart?.quantity }}</div>
     <button @click="() => singleCartItemDelete(cart)" class="absolute text-red-600 right-10">
         <i class="fa-solid fa-xmark"></i>
     </button>

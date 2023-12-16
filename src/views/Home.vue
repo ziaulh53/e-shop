@@ -1,7 +1,9 @@
 <template>
     <Layout>
         <div class="my-10 grid grid-cols-1 md:grid-cols-3 gap-5">
-            <Brands />
+            <div class="hidden md:block">
+                <Brands />
+            </div>
             <div class="col-span-2 rounded-lg">
                 <EShopSkeleton height="400px" v-if="loading" />
                 <Poster v-if="homepageData?.result?.banners?.length" :posters="homepageData?.result?.banners" />
@@ -21,13 +23,14 @@
             </div>
             <ECarousel v-if="!loading" :items="homepageData.result?.trendings" />
         </div>
+        <NewArrival />
         <Categories />
     </Layout>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { Poster, Categories, Brands } from '../components/Home';
+import { Poster, Categories, Brands, NewArrival } from '../components/Home';
 import { Layout } from '../components/Layout';
 import { api, landingEndpoint } from '../api';
 import { EShopSkeleton, ECarousel } from '../components/shared';
@@ -44,6 +47,7 @@ const getHomepageData = async () => {
     }
     loading.value = false
 }
+
 onMounted(() => {
     getHomepageData();
 })

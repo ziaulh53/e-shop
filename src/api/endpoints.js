@@ -16,6 +16,7 @@ export const categoryEndpoint = {
 export const productEndpoint = {
     fetchSingleProduct: '/product/',
     fetchSuggestionProducts: '/product/suggestion',
+    fetchNewArrival: '/product/new-arrival',
 }
 
 export const landingEndpoint = {

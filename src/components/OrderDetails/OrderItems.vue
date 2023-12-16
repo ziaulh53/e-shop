@@ -14,7 +14,10 @@
                     <span v-if="!record.lastChild" class="text-right">USD {{ (record?.discountAvailable ?
                         record?.discountPrice
                         : record?.price) * record.quantity }}</span>
-                    <span v-if="record.lastChild" class="text-base font-bold">Total Price: USD {{ totalPrice }}</span>
+                    <div v-if="record.lastChild" class="text-base font-bold">
+                        <div>Shipping Charge: USD 80</div>
+                        <div>Total Price: USD {{ totalPrice+80 }}</div>
+                    </div>
                 </template>
             </template>
         </a-table>
@@ -32,7 +35,7 @@ const totalPrice = ref(0);
 
 onMounted(()=>{
     data.value?.forEach(prod=>{
-        totalPrice.value+= (prod?.dicountAvailable? prod?.discountPrice:prod?.price)* prod?.quantity
+        totalPrice.value+= (prod?.discountAvailable? prod?.discountPrice:prod?.price)* prod?.quantity
     })
 })
 

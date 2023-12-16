@@ -23,11 +23,11 @@
             </div>
         </div>
     </header>
+   
 </template>
 
 <script setup>
 import { onMounted, computed } from 'vue';
-import Dropdown from './NavBar/Dropdown.vue';
 import UserDropdown from './Navbar/UserDropown.vue'
 import { useAuthStore, useCartStore, useCategoryStore } from '../../store';
 
