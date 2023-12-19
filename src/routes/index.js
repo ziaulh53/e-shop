@@ -14,7 +14,8 @@ import {
   StockOut,
   Account,
   NewEmailVerify,
-  OrderDetails
+  OrderDetails,
+  Brand
 } from "../views";
 import { useAuthStore } from "../store";
 
@@ -38,6 +39,11 @@ const routes = [
     path: "/trending",
     name: "trending",
     component: TrendingsDetails,
+  },
+  {
+    path: "/brands/:id",
+    name: "brand",
+    component: Brand,
   },
   {
     path: "/shopping-cart",

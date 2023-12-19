@@ -6,9 +6,9 @@
         <div class="p-5 ">
             <div class="text-center text-lg text-gray-300 font-bold">Available Brands</div>
             <div class="flex flex-wrap gap-y-10 gap-x-5 mt-5">
-                <div v-for="brand of allBrands" :key="brand?._id" class="bg-white w-[80px] h-[80px] rounded-3xl">
+                <div v-for="brand of allBrands" :key="brand?._id" class="rounded-3xl">
                     <router-link :to="'/brands/' + brand?._id">
-                        <img :src="brand?.logo" class="w-[80px] h-[80px] rounded-3xl object-cover" />
+                        <img :src="brand?.logo" class="w-[60px] h-[60px] rounded-3xl object-cover" />
                         <div class="text-center text-xs font-bold text-gray-300 mt-3"> {{ brand?.name }}</div>
                     </router-link>
                 </div>

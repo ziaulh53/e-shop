@@ -35,9 +35,9 @@ const { isAuthenticated } = useAuthStore().auth;
 const categoryStore = useCategoryStore();
 const cartStore = useCartStore();
 
-const allCategories = computed(() => categoryStore.category)
+const allCategories = computed(() => categoryStore?.category)
 
 onMounted(() => {
-    categoryStore.fetchCateogries();
+    categoryStore?.fetchCateogries();
 })
 </script>

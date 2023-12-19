@@ -20,7 +20,9 @@
             </p>
         </div>
         <div class="mr-20">
-            <p class="text-gray-500 font-semibold">Brand: <span class="text-blue-500">{{ data?.brands?.name }}</span></p>
+            <p class="text-gray-500 font-semibold">Brand: <span class="text-blue-500"><router-link
+                        :to="'/brands/' + data?.brands?._id">{{
+                            data?.brands?.name }}</router-link></span></p>
         </div>
     </div>
     <div class="my-5">

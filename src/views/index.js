@@ -13,3 +13,4 @@ export { default as OrderDetails } from './OrderDetails.vue';
 export { default as NewEmailVerify } from './NewEmailVerify.vue';
 export { default as ForgetPassword } from './ForgetPassword.vue';
 export { default as ResetPassword } from './ResetPassword.vue';
+export { default as Brand } from './Brands.vue';

@@ -59,7 +59,7 @@ const cartStore = useCartStore();
 const allCategories = computed(() => categoryStore.category)
 
 onMounted(() => {
-    categoryStore.fetchCateogries();
+    categoryStore?.fetchCateogries();
 })
 
 </script>

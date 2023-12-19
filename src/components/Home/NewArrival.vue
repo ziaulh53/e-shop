@@ -2,9 +2,10 @@
     <div class="border bg-white p-5 rounded-md mb-10">
         <div class="flex justify-between mb-5">
             <h2 class="font-semibold text-xl text-theme-color">
+                <i class="fa-solid fa-plane-arrival"></i>
                 <i class="fa-solid fa-arrow-trend-up mr-2 text-red-600"></i>New Arrivals
             </h2>
-            <router-link to="/trending"
+            <router-link to="/new-arrival"
                 class="font-semibold px-3 py-1 rounded-lg text-white bg-red-600 hover:bg-red-500 transition-all">Show
                 More</router-link>
         </div>
